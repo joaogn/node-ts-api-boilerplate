@@ -1,7 +1,7 @@
 {
     "test":{
         "username": "postgres",
-        "password": "pgtoot",
+        "password": "pgroot",
         "database": "ts-api-test",
         "host": "localhost",
         "dialect": "postgres"
