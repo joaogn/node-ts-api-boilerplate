@@ -13,7 +13,7 @@ test api:
   before_script:
     - apt-get update && apt-get install -y postgresql-client libpq-dev
     - PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER -h $POSTGRES_HOST -d $POSTGRES_DB
-    - npm i -g sequelize-cli gulp-cli
+    - npm i -g sequelize sequelize-cli gulp-cli
     - cd server/
     - sequelize db:migrate --env test
     - npm install
