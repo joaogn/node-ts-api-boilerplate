@@ -9,6 +9,7 @@ test api:
     POSTGRES_DB: ts-api-test
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: pgroot
+    POSTGRES_HOST: localhost
   before_script:
     - apt-get update && apt-get install -y postgresql-client libpq-dev
     - PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER -h $POSTGRES_HOST -d $POSTGRES_DB
