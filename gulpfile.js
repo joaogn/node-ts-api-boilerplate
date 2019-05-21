@@ -28,8 +28,19 @@ gulp.task('copy-opts', function(){
 
 });
 
+gulp.task('copy-migration-config', function(){
+
+    return gulp.src('server/config/config.json',{ allowEmpty: true })
+                .pipe(gulp.dest('dist/server/config'));
+});
+
+gulp.task('build', function(){
+
+    return gulp.src('server/migrations/*',{ allowEmpty: true })
+                .pipe(gulp.dest('dist/server/migrations'));
+
+});
 
 
 
-
-gulp.task('default', gulp.series('clean','compile','copy-opts'));
+gulp.task('default', gulp.series('clean','compile','copy-opts','copy-migration-config','build'));
