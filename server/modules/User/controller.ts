@@ -1,10 +1,8 @@
 import { Request, Response} from 'express';
 import * as HTTPStatus from 'http-status';
 import * as _ from 'lodash';
-import {onError} from '../../api/responses/errorHandler';
-import {onSucess} from '../../api/responses/sucessHandler';
+import Handlers from '../../api/responses/handlers'
 import User from './service';
-import { dbErrorHandler } from '../../config/dbErrorHandler';
 
 
 
@@ -18,8 +16,8 @@ class UserController {
 
         User
         .getAll()
-        .then(_.partial(onSucess, res))
-        .catch(_.partial(onError, res, 'Error get all users'));
+        .then(_.partial(Handlers.onSucess, res))
+        .catch(_.partial(Handlers.onError, res, 'Error get all users'));
 
 
 
@@ -29,9 +27,9 @@ class UserController {
 
         User
         .create(req.body)
-        .then(_.partial(onSucess, res))
-        .catch(_.partial(dbErrorHandler, res))
-        .catch(_.partial(onError, res, 'Error create new user'));
+        .then(_.partial(Handlers.onSucess, res))
+        .catch(_.partial(Handlers.dbErrorHandler, res))
+        .catch(_.partial(Handlers.onError, res, 'Error create new user'));
 
     }
 
@@ -40,8 +38,8 @@ class UserController {
         
         User
         .getById(parseInt(req.params.id))
-        .then(_.partial(onSucess, res))
-        .catch(_.partial(onError, res, 'Error user not find'));
+        .then(_.partial(Handlers.onSucess, res))
+        .catch(_.partial(Handlers.onError, res, 'Error user not find'));
   
 
     }
@@ -50,16 +48,16 @@ class UserController {
 
         User
         .update(parseInt(req.params.id),req.body)
-        .then(_.partial(onSucess, res))
-        .catch(_.partial(onError, res, 'Error update user'));
+        .then(_.partial(Handlers.onSucess, res))
+        .catch(_.partial(Handlers.onError, res, 'Error update user'));
     }
 
     deleteUser(req: Request, res: Response){
 
         User
         .delete(parseInt(req.params.id))
-        .then(_.partial(onSucess, res))
-        .catch(_.partial(onError, res, 'Error delete user'));
+        .then(_.partial(Handlers.onSucess, res))
+        .catch(_.partial(Handlers.onError, res, 'Error delete user'));
 
     }
 
