@@ -8,6 +8,8 @@
     "builded": " NODE_ENV=production node ./dist/server/server.js",
     "unit-test": "NODE_ENV=test mocha --opts dist/tests/unit/config/mocha.opts ./dist/tests/unit/unit.test.js",
     "integration-test": "NODE_ENV=test mocha --opts dist/tests/integration/config/mocha.opts ./dist/tests/integration/integration.test.js",
+    "unit-local-test": "NODE_ENV=testlocal mocha --opts dist/tests/unit/config/mocha.opts ./dist/tests/unit/unit.test.js",
+    "integration-local-test": "NODE_ENV=testlocal mocha --opts dist/tests/integration/config/mocha.opts ./dist/tests/integration/integration.test.js",
     "integration-coverage": "nyc --reporter=html npm run integration-test",
     "unit-coverage": "nyc --reporter=html npm run unit-test"
   },
