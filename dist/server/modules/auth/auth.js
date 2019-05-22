@@ -21,4 +21,4 @@ var TokenRoutes = /** @class */ (function () {
     };
     return TokenRoutes;
 }());
-exports.default = TokenRoutes;
+exports.default = new TokenRoutes();

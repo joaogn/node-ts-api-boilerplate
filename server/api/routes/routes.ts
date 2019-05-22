@@ -7,12 +7,10 @@ import { all } from 'bluebird';
 class Routes {
 
     private router: UserRoutes;
-    private tokenRoute;
 
     constructor(){
 
         this.router = new UserRoutes();
-        this.tokenRoute = new TokenRoutes();
 
     }
 
@@ -22,7 +20,7 @@ class Routes {
         app.route('/api/users/:id').all(auth.config().authenticate()).get(this.router.findOne);
         app.route('/api/users/:id/update').all(auth.config().authenticate()).put(this.router.update);
         app.route('/api/users/:id/destroy').all(auth.config().authenticate()).delete(this.router.destroy);
-        app.route('/token').post(this.tokenRoute.auth);
+        app.route('/token').post(TokenRoutes.auth);
     }
 
 }
