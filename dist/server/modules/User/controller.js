@@ -40,4 +40,4 @@ var UserController = /** @class */ (function () {
     };
     return UserController;
 }());
-exports.default = UserController;
+exports.default = new UserController();
