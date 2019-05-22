@@ -10,15 +10,13 @@ import { dbErrorHandler } from '../../config/dbErrorHandler';
 
 class UserController {
 
-    private UserService: User;
 
-    constructor(){
-        this.UserService = new User;
-    };
+
+    constructor(){};
 
     getAll(req: Request, res: Response){
 
-        this.UserService
+        User
         .getAll()
         .then(_.partial(onSucess, res))
         .catch(_.partial(onError, res, 'Error get all users'));
@@ -29,7 +27,7 @@ class UserController {
 
     createUser(req: Request, res: Response){
 
-        this.UserService
+        User
         .create(req.body)
         .then(_.partial(onSucess, res))
         .catch(_.partial(dbErrorHandler, res))
@@ -40,7 +38,7 @@ class UserController {
     getById(req: Request, res: Response){
 
         
-        this.UserService
+        User
         .getById(parseInt(req.params.id))
         .then(_.partial(onSucess, res))
         .catch(_.partial(onError, res, 'Error user not find'));
@@ -50,7 +48,7 @@ class UserController {
 
     updateUser(req: Request, res: Response){
 
-        this.UserService
+        User
         .update(parseInt(req.params.id),req.body)
         .then(_.partial(onSucess, res))
         .catch(_.partial(onError, res, 'Error update user'));
@@ -58,7 +56,7 @@ class UserController {
 
     deleteUser(req: Request, res: Response){
 
-        this.UserService
+        User
         .delete(parseInt(req.params.id))
         .then(_.partial(onSucess, res))
         .catch(_.partial(onError, res, 'Error delete user'));

@@ -8,13 +8,12 @@ var Auth = /** @class */ (function () {
     function Auth() {
     }
     Auth.prototype.config = function () {
-        var UserService = new service_1.default();
         var opts = {
             secretOrKey: config.secret,
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderWithScheme('jwt')
         };
         passport.use(new passport_jwt_1.Strategy(opts, function (jwtPayload, done) {
-            UserService.getById(jwtPayload.id)
+            service_1.default.getById(jwtPayload.id)
                 .then(function (user) {
                 if (user) {
                     return done(null, {

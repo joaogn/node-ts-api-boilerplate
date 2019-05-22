@@ -7,7 +7,7 @@ class Auth{
     
 
     config(){
-        const UserService = new User();
+
 
         let opts = {
             secretOrKey: config.secret,
@@ -15,7 +15,7 @@ class Auth{
         };
 
         passport.use(new Strategy(opts,(jwtPayload, done) => {
-            UserService.getById(jwtPayload.id)
+            User.getById(jwtPayload.id)
             .then(user => {
                 if(user) {
                     return done(null,{

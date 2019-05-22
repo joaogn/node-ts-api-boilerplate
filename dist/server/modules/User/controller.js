@@ -7,36 +7,35 @@ var service_1 = require("./service");
 var dbErrorHandler_1 = require("../../config/dbErrorHandler");
 var UserController = /** @class */ (function () {
     function UserController() {
-        this.UserService = new service_1.default;
     }
     ;
     UserController.prototype.getAll = function (req, res) {
-        this.UserService
+        service_1.default
             .getAll()
             .then(_.partial(sucessHandler_1.onSucess, res))
             .catch(_.partial(errorHandler_1.onError, res, 'Error get all users'));
     };
     UserController.prototype.createUser = function (req, res) {
-        this.UserService
+        service_1.default
             .create(req.body)
             .then(_.partial(sucessHandler_1.onSucess, res))
             .catch(_.partial(dbErrorHandler_1.dbErrorHandler, res))
             .catch(_.partial(errorHandler_1.onError, res, 'Error create new user'));
     };
     UserController.prototype.getById = function (req, res) {
-        this.UserService
+        service_1.default
             .getById(parseInt(req.params.id))
             .then(_.partial(sucessHandler_1.onSucess, res))
             .catch(_.partial(errorHandler_1.onError, res, 'Error user not find'));
     };
     UserController.prototype.updateUser = function (req, res) {
-        this.UserService
+        service_1.default
             .update(parseInt(req.params.id), req.body)
             .then(_.partial(sucessHandler_1.onSucess, res))
             .catch(_.partial(errorHandler_1.onError, res, 'Error update user'));
     };
     UserController.prototype.deleteUser = function (req, res) {
-        this.UserService
+        service_1.default
             .delete(parseInt(req.params.id))
             .then(_.partial(sucessHandler_1.onSucess, res))
             .catch(_.partial(errorHandler_1.onError, res, 'Error delete user'));
