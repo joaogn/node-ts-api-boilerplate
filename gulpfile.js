@@ -6,7 +6,7 @@ var ts = require('gulp-typescript');
 var tsProject = ts.createProject('tsconfig.json');
 
 gulp.task('clean', function(){
-    return gulp.src('dist').pipe(clean());
+    return gulp.src('dist',{ allowEmpty: true }).pipe(clean());
 });
 
 
