@@ -17,12 +17,14 @@ test api:
     - cd server/
     - sequelize db:migrate --env test
     - cd ../
+    - npm install
+    - gulp
     - cd dist/
+    - ls
+    - cd server/
     - ls
     - cd ../../
     - ls
-    - npm install
-    - gulp
   script:
     - npm run unit-test
     - npm run integration-test
