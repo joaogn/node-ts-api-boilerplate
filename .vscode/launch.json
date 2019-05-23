@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}/server/server.ts",
-            "env": {"NODE_ENV":"development"},
+            "env": {"NODE_ENV":"debbuger"},
             "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"
