@@ -21,9 +21,8 @@ gulp.task('compile', function(){
 
 gulp.task('copy-opts', function(){
 
-    return gulp.src('tests/unit/config/mocha.opts',{ allowEmpty: true })
-                .pipe(gulp.dest('dist/tests/unit/config'))
-                .pipe(gulp.dest('dist/tests/integration/config'));
+    return gulp.src('server/config/test/mocha.opts')
+                .pipe(gulp.dest('dist/server/config/test'));
 
 
 });
