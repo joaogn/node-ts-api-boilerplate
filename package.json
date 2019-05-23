@@ -6,8 +6,8 @@
   "scripts": {
     "start": "NODE_ENV=development ./node_modules/.bin/ts-node ./server/server.ts",
     "builded": " NODE_ENV=production node ./dist/server.js",
-    "unit-test": "NODE_ENV=test mocha --opts ./dist/server/config/test/mocha.opts ./dist/server/modules/**/unit.test.js",
-    "integration-test": "NODE_ENV=test mocha --opts ./dist/server/config/test/mocha.opts ./dist/server/modules/**/integration.test.js",
+    "unit-test": "NODE_ENV=test mocha --opts ./dist/server/config/test/mocha.opts ./dist/modules/**/unit.test.js",
+    "integration-test": "NODE_ENV=test mocha --opts ./dist/server/config/test/mocha.opts ./dist/modules/**/integration.test.js",
     "unit-local-test": "NODE_ENV=testlocal mocha --opts ./dist/server/config/test/mocha.opts ./dist/modules/**/unit.test.js",
     "integration-local-test": "NODE_ENV=testlocal mocha --opts ./dist/server/config/test/mocha.opts ./dist/modules/**/integration.test.js",
     "integration-coverage": "nyc --reporter=html npm run integration-local-test",

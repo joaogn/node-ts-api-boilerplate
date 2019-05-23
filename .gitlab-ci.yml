@@ -17,7 +17,9 @@ test api:
     - cd server/
     - sequelize db:migrate --env test
     - cd ../
-    - cd dist/server
+    - cd dist/
+    - ls
+    - cd ../../
     - ls
     - npm install
     - gulp
