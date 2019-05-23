@@ -5,7 +5,6 @@ var auth_1 = require("../../modules/auth/auth");
 var Routes = /** @class */ (function () {
     function Routes() {
     }
-    ;
     Routes.prototype.initRoutes = function (app, auth) {
         app.route('/api/users/all').all(auth.config().authenticate()).get(routes_1.default.index);
         app.route('/api/users/create').all(auth.config().authenticate()).post(routes_1.default.create);

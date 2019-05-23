@@ -6,8 +6,6 @@ import { all } from 'bluebird';
 
 class Routes {
 
-;
-
     constructor(){}
 
     initRoutes(app: Application, auth: any): void{

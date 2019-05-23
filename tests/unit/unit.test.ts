@@ -1,23 +1,11 @@
 
 import {testDouble, expect} from './config/helpers';
 import User from '../../server/modules/User/service'
+const model = require('../../server/models');
 
 
 
 describe('Unit test controller', ()=> {
-    'use strict';
-
-    const confing = require('../../server/config/env/config')();
-    const model = require('../../server/models');
-
-    let id;
-
-    const userTest = {
-        id: 100,
-        name: 'Test User',
-        email: 'test@email.com',
-        password: 'test'
-    };
 
     const userDefault = {
         id: 1,
@@ -27,32 +15,27 @@ describe('Unit test controller', ()=> {
 
     }
 
-    before((done) => {
+    beforeEach((done) => {
         model.sequelize.sync().then(() => {
-            
             model.User.destroy({
-                where: {}
+                where:{}
             })
             .then(() => {
-                return model.User.create(userDefault);
+                model.User.create(userDefault).then(() => {
+                    console.log('Default User Created');
+                    done();
+                })
             })
-            .then(user => {
-                model.User.create(userTest)
-                    .then(() => {
-                        done();
-                    })
-            })
+        })    
 
-        })
-
-    });
+    });;
 
     describe('Method Create', ()=>{
         
            
             it('Create new user',()=>{
                 const newUser = {
-                    id: 3,
+                    id: 2,
                     name: 'New User',
                     email: 'newuser@email.com',
                     password: '1234'
@@ -74,7 +57,7 @@ describe('Unit test controller', ()=> {
                 email: 'new@email.com'
             };
 
-            return User.update(3,userUpdate).then(data => {
+            return User.update(userDefault.id,userUpdate).then(data => {
                 console.log(data[0]);
                 expect(data[0]).to.be.equal(1);
             })
@@ -94,7 +77,7 @@ describe('Unit test controller', ()=> {
 
     describe('Method getById', ()=>{
         it('Return id user',()=>{
-            return User.getById(3).then(data => {
+            return User.getById(userDefault.id).then(data => {
                 expect(data).to.have.all.keys(['id','name','email','password']);
             })
         });
@@ -102,7 +85,7 @@ describe('Unit test controller', ()=> {
 
     describe('Method getByEmail', ()=>{
         it('Return id user',()=>{
-            return User.getbyEmail('new@email.com').then(data => {
+            return User.getbyEmail(userDefault.email).then(data => {
                 expect(data).to.have.all.keys(['id','name','email','password']);
             })
         });
@@ -112,7 +95,7 @@ describe('Unit test controller', ()=> {
     describe('Method Delete', ()=>{
         it('Delete user',()=>{
 
-            return User.delete(3).then(data => {
+            return User.delete(userDefault.id).then(data => {
                 expect(data).to.be.equal(1);
             });
 
