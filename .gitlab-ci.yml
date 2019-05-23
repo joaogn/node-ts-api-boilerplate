@@ -19,5 +19,6 @@ test api:
     - npm install
     - gulp
   script:
+    - ls
     - npm run unit-test
     - npm run integration-test
