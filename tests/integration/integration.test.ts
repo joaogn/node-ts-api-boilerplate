@@ -27,7 +27,7 @@ describe('Integration Tests', ()=> {
 
     }
 
-    before((done) => {
+    beforeEach((done) => {
         model.sequelize.sync().then(() => {
 
             model.User.destroy({
