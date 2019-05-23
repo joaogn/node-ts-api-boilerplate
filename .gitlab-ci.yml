@@ -16,6 +16,7 @@ test api:
     - npm i -g pg sequelize sequelize-cli gulp-cli
     - cd server/
     - sequelize db:migrate --env test
+    - cd ../
     - npm install
     - gulp
   script:
