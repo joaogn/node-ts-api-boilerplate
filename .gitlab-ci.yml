@@ -19,12 +19,6 @@ test api:
     - cd ../
     - npm install
     - gulp
-    - cd dist/
-    - ls
-    - cd server/
-    - ls
-    - cd ../../
-    - ls
   script:
     - npm run unit-test
     - npm run integration-test
