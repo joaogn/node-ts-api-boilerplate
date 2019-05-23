@@ -1,6 +1,6 @@
-import * as express from 'express';
+import express from 'express';
 import {Application} from 'express';
-import * as morgan from 'morgan';
+import morgan from 'morgan';
 import * as bodyParser from 'body-parser';
 import Routes from './routes/routes';
 import Handlers from './responses/handlers'
