@@ -7,7 +7,7 @@ const model = require('../../models');
 
 
 
-describe('Integration Tests', ()=> {
+describe('User Integration Tests', ()=> {
 
 
     let id;
@@ -47,39 +47,6 @@ describe('Integration Tests', ()=> {
         })
 
     });
-
-    describe('POST /token', () => {
-        it('get JWT Token', done => {
-            const credentials = {
-                email: userDefault.email,
-                password: userDefault.password
-            };
-            request(app)
-            .post('/token')
-            .send(credentials)
-            .end((error, res) => {
-                expect(res.status).to.equal(HTTPStatus.OK);
-                expect(res.body.token).to.equal(`${token}`);
-                done(error);
-            });
-        });
-
-        it(' Get notvalid token', done => {
-            const credentials = {
-                email: 'notvalid@email.com',
-                password: '1234'
-            };
-            request(app)
-            .post('/token')
-            .send(credentials)
-            .end((error, res) => {
-                expect(res.status).to.equal(HTTPStatus.UNAUTHORIZED);
-                expect(res.body).to.empty;
-                done(error);
-            });
-
-        });
-    })
 
     describe('GET /api/users/all', ()=>{
         it('Return all users on json', done =>{

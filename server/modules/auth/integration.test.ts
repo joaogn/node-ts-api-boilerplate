@@ -1,0 +1,72 @@
+import * as jwt from 'jwt-simple'; 
+import * as HTTPStatus from 'http-status';
+import {app, request, expect} from '../../config/test/helpers';
+
+const config = require('../../config/env/config')();
+const model = require('../../models');
+
+
+
+describe('Auth Integration Tests', ()=> {
+
+
+    let token;
+
+    const userDefault = {
+        id: 1,
+        name: 'Default User',
+        email: 'default@email.com',
+        password: 'default'
+
+    }
+
+    beforeEach((done) => {
+        model.sequelize.sync().then(() => {
+
+            model.User.destroy({
+                where: {}
+            })
+            .then(() => {
+                return model.User.create(userDefault);
+            })
+            .then(user => {
+                token = jwt.encode({id: user.id}, config.secret)
+                done();
+            })
+        })
+    });
+
+    describe('POST /token', () => {
+        it('get JWT Token', done => {
+            const credentials = {
+                email: userDefault.email,
+                password: userDefault.password
+            };
+            request(app)
+            .post('/token')
+            .send(credentials)
+            .end((error, res) => {
+                expect(res.status).to.equal(HTTPStatus.OK);
+                expect(res.body.token).to.equal(`${token}`);
+                done(error);
+            });
+        });
+
+        it(' Get notvalid token', done => {
+            const credentials = {
+                email: 'notvalid@email.com',
+                password: '1234'
+            };
+            request(app)
+            .post('/token')
+            .send(credentials)
+            .end((error, res) => {
+                expect(res.status).to.equal(HTTPStatus.UNAUTHORIZED);
+                expect(res.body).to.empty;
+                done(error);
+            });
+
+        });
+    })
+
+});
