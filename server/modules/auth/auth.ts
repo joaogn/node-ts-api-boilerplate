@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import * as _ from 'lodash';
-import User from '../User/service';
+import User from '../user/service';
 import Handlers from '../../api/responses/handlers'
 
 

@@ -1,5 +1,5 @@
 import { Application, Request, Response } from 'express';
-import UserRoutes from '../../modules/User/routes';
+import UserRoutes from '../../modules/user/routes';
 import TokenRoutes from '../../modules/auth/auth';
 import { all } from 'bluebird';
 
