@@ -10,8 +10,8 @@
     "integration-test": "NODE_ENV=test mocha --opts ./dist/server/config/test/mocha.opts ./dist/modules/**/integration.test.js",
     "unit-local-test": "NODE_ENV=testlocal mocha --opts ./dist/server/config/test/mocha.opts ./dist/modules/**/unit.test.js",
     "integration-local-test": "NODE_ENV=testlocal mocha --opts ./dist/server/config/test/mocha.opts ./dist/modules/**/integration.test.js",
-    "integration-coverage": "nyc --reporter=html npm run integration-local-test",
-    "unit-coverage": "nyc --reporter=html npm run unit-local-test"
+    "integration-coverage": "NODE_ENV=testlocal nyc --reporter=html  mocha --opts ./dist/server/config/test/mocha.opts ./dist/modules/**/integration.test.js",
+    "unit-coverage": "NODE_ENV=testlocal nyc --reporter=html mocha --opts ./dist/server/config/test/mocha.opts ./dist/modules/**/unit.test.js"
   },
   "keywords": [
     "API",
