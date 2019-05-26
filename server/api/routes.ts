@@ -1,8 +1,12 @@
+'use strict';
+
 import { Application, Request, Response } from 'express';
-import UserRoutes from '../../modules/user/routes';
-import TokenRoutes from '../../modules/auth/auth';
+import UserRoutes from '../modules/user/routes';
+import TokenRoutes from '../modules/auth/auth';
 import { all } from 'bluebird';
 
+//Class responsible for starting the API routes, request authentication
+//and call the modules responsible for executing the route
 
 class Routes {
 

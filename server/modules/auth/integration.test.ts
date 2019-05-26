@@ -5,7 +5,7 @@ import {app, request, expect} from '../../config/test/helpers';
 const config = require('../../config/env/config')();
 const model = require('../../models');
 
-
+//integration test, tests the answers to the routes, of this module
 
 describe('Auth Integration Tests', ()=> {
 
@@ -20,6 +20,8 @@ describe('Auth Integration Tests', ()=> {
 
     }
 
+    //before each test is checked the database synchronization, 
+    //the whole database is erased, and a known user is created to maintain good practices
     beforeEach((done) => {
         model.sequelize.sync().then(() => {
 

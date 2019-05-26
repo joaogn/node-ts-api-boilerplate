@@ -1,11 +1,14 @@
+'use strict';
 
 import {Request, Response, ErrorRequestHandler, NextFunction} from 'express';
 import * as HttpStatus from 'http-status';
 import * as jwt from 'jwt-simple';
 import * as bcrypt from 'bcrypt';
-const config = require('../../config/env/config')();
+const config = require('../config/env/config')();
 
 
+
+//Class that has the methods responsible for the API response
 
 class Handlers{
 
@@ -14,18 +17,13 @@ class Handlers{
         res.sendStatus(HttpStatus.UNAUTHORIZED);
     }
 
-    authSuccess(res: Response, credentials: any, data: any){
+    authSuccess(res: Response, data: any){
 
-        const isMatch = bcrypt.compareSync(credentials.password,data.password);
-    
-        if(isMatch){
             const payload = { id: data.id};
             res.json({
                 token: jwt.encode(payload, config.secret)
             });
-        }else{
-          res.sendStatus(HttpStatus.UNAUTHORIZED);
-        }
+
     }
 
     onError(res: Response, message: string, err: any){

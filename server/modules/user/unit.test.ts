@@ -3,6 +3,7 @@ import {testDouble, expect} from '../../config/test/helpers';
 import User from './service'
 const model = require('../../models');
 
+//unit test, used to test the functions exposed by the module service
 
 
 describe('Unit test controller', ()=> {
@@ -15,6 +16,8 @@ describe('Unit test controller', ()=> {
 
     }
 
+    //before each test is checked the database synchronization, 
+    //the whole database is erased, and a known user is created to maintain good practices
     beforeEach((done) => {
         model.sequelize.sync().then(() => {
             model.User.destroy({

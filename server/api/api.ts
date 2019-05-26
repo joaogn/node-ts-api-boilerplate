@@ -1,10 +1,15 @@
+'use strict';
+
 import express from 'express';
 import {Application} from 'express';
 import morgan from 'morgan';
 import * as bodyParser from 'body-parser';
-import Routes from './routes/routes';
-import Handlers from './responses/handlers'
+import Routes from './routes';
+import Handlers from './resposeHandlers'
 import Auth from '../auth';
+
+
+//class responsible for setting up and starting routes the API
 
 class Api {
     public express: Application;

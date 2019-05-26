@@ -1,4 +1,10 @@
+'use strict';
+
+//this code is responsible for defining a database table, to be used by sequelize.
+//here bcrypt is used, in order to encrypt the user's password when saving to the database.
+
 import * as bcrypt from 'bcrypt';
+
 export default function(sequelize, DataTypes) {
   
     const User = sequelize.define('User',{

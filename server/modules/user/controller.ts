@@ -1,10 +1,11 @@
 import { Request, Response} from 'express';
 import * as HTTPStatus from 'http-status';
 import * as _ from 'lodash';
-import Handlers from '../../api/responses/handlers'
+import Handlers from '../../api/resposeHandlers'
 import User from './service';
 
-
+//the controler class is used to make the connection between the UserRouter class and the Service class 
+//And returns the result of the promisses of the service class methods.
 
 class UserController {
 

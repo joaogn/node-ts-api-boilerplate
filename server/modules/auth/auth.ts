@@ -1,8 +1,11 @@
 import { Request, Response } from 'express';
 import * as _ from 'lodash';
 import User from '../user/service';
-import Handlers from '../../api/responses/handlers'
+import Handlers from '../../api/resposeHandlers';
+import * as bcrypt from 'bcrypt';
 
+
+//class responsible for receiving the credentials and verify that they are valid, and authorize the use of the API
 
 class TokenRoutes {
 
@@ -14,10 +17,21 @@ class TokenRoutes {
 
         if(credentials.hasOwnProperty('email') && credentials.hasOwnProperty('password') ){
             User.getbyEmail(credentials.email)
-            .then(_.partial(Handlers.authSuccess, res, credentials))
-            .catch(_.partial(Handlers.authFail, req, res));
+            .then(user =>  {
+                const isMatch = bcrypt.compareSync(credentials.password,user.password);
+    
+                if(isMatch){
+                    Handlers.authSuccess(res,user);   
+                }else{
+                    Handlers.authFail(req,res);
+                }
+            })
+            .catch(
+                _.partial(Handlers.authFail, req, res)
+                );
         }
     }
+
 
 }
 

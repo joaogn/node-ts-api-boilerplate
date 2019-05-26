@@ -1,3 +1,6 @@
+
+//Specification rules for the module
+
 export interface IUser {
 
     readonly id: number,

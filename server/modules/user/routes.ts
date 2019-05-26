@@ -2,6 +2,9 @@ import {Request, Response} from 'express';
 import UserController from './controller'
 
 
+
+//Class with methods for answering route calls
+
 class UserRoutes {
 
     constructor(){}

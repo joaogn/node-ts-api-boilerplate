@@ -2,6 +2,9 @@ import {IUser, IUserDetail, createUser, createUsers, createUserById, createUserB
 import * as Bluebird from 'bluebird';
 const model = require('../../models');
 
+
+//The service class serves to implement our CRUDS or our Business Rules
+
 class User implements IUser{
     public id: number;
     public name: string;
