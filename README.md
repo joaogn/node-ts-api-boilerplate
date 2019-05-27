@@ -25,9 +25,9 @@ Uses nodejs, typescript, sequelize and postgreSql, to create rest Api.
 - Generate dist files: `gulp`
 - Start Server: `npm start`
 - Unit Test: `npm run unit-local-test`
-- Integration Test: `integration-local-test`
-- Unit Coverage: `unit-coverage`
-- Integration Coverage: `integration-coverage`
+- Integration Test: `npm run integration-local-test`
+- Unit Coverage: `npm run unit-coverage`
+- Integration Coverage: `npm run integration-coverage`
 
 ## Architecture
 ```
