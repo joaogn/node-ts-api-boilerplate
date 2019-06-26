@@ -1,8 +1,8 @@
 'use strict';
 
 import { Request, Response, ErrorRequestHandler, NextFunction } from 'express';
-import * as HttpStatus from 'http-status';
-import * as jwt from 'jwt-simple';
+import HttpStatus from 'http-status';
+import jwt from 'jsonwebtoken';
 
 // Class that has the methods responsible for the API response
 
@@ -14,7 +14,10 @@ class Handlers {
   authSuccess (res: Response, data: any) {
     const payload = { id: data.id };
     res.json({
-      token: jwt.encode(payload, process.env.SECRET)
+      token: jwt.sign(payload, process.env.SECRET, {
+        // tempo de expiração do token
+        expiresIn: 300 // expires in 5min
+      })
     });
   }
 

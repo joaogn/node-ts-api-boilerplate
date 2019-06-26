@@ -1,4 +1,5 @@
-import * as jwt from 'jwt-simple';
+// import * as jwt from 'jwt-simple';
+import jwt from 'jsonwebtoken';
 import * as HTTPStatus from 'http-status';
 import request from 'supertest';
 import app from '../../src/api/api';
@@ -25,7 +26,7 @@ describe('Auth Integration Tests', () => {
 
     const user = await model.User.create(userDefault);
 
-    token = jwt.encode({ id: user.id }, process.env.SECRET);
+  //  token = jwt.encode({ id: user.id }, process.env.SECRET);
   });
 
   describe('POST /token', () => {
@@ -39,7 +40,8 @@ describe('Auth Integration Tests', () => {
         .send(credentials)
         .end((error, res) => {
           expect(res.status).toEqual(HTTPStatus.OK);
-          expect(res.body.token).toEqual(`${token}`);
+          const decoded:any = jwt.verify(res.body.token, process.env.SECRET);
+          expect(decoded.id).toEqual(userDefault.id);
           done(error);
         });
     });
