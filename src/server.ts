@@ -13,6 +13,6 @@ const server = http.createServer(Api);
 models.sequelize.sync().then(() => {
   server.listen(config.serverPort);
 
-  server.on('listening', () => console.log(`server listing ${config.serverPort}`));
+  server.on('listening', () => console.log(`server listing ${process.env.SERVER_PORT}`));
   server.on('error', (error: NodeJS.ErrnoException) => console.log(`Error: ${error}`));
 });

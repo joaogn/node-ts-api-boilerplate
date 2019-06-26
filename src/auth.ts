@@ -1,14 +1,13 @@
 import passport from 'passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import User from './modules/user/service';
-const config = require('./config/env/config')();
 
 // this class is responsible for calling the passport middleware and configuring the entire API authentication strategy
 
 class Auth {
   config () {
     let opts = {
-      secretOrKey: config.secret,
+      secretOrKey: process.env.SECRET,
       jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt')
     };
 

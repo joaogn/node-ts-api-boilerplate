@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const config = require('../config/env/config')();
+const config = require('../config/database');
 
 const db:any = {}; // original is const db = {}; Changed to go through TypeScript types
 
@@ -15,7 +15,7 @@ let sequelize;
 if (config.dbURL) {
   sequelize = new Sequelize(config.dbURL);
 } else {
-  sequelize = new Sequelize(config.db, config.username, config.password);
+  sequelize = new Sequelize(config.db, config.username, config.password, config);
 }
 
 fs

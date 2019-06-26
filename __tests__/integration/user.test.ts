@@ -1,9 +1,8 @@
 import * as jwt from 'jwt-simple';
 import * as HTTPStatus from 'http-status';
-import { app, request, expect } from '../../config/test/helpers';
-import { describe, beforeEach, it } from 'mocha';
-const config = require('../../config/env/config')();
-const model = require('../../models');
+import request from 'supertest';
+import app from '../../src/api/api';
+const model = require('../../src/models');
 
 // integration test, tests the answers to the routes, of this module
 
@@ -27,22 +26,13 @@ describe('User Integration Tests', () => {
 
   // before each test is checked the database synchronization,
   // the whole database is erased, and a known user is created to maintain good practices
-  beforeEach((done) => {
-    model.sequelize.sync().then(() => {
-      model.User.destroy({
-        where: {}
-      })
-        .then(() => {
-          return model.User.create(userDefault);
-        })
-        .then(user => {
-          model.User.create(userTest)
-            .then(() => {
-              token = jwt.encode({ id: user.id }, config.secret);
-              done();
-            });
-        });
-    });
+  beforeEach(async () => {
+    //   await model.sequelize.sync();
+    await model.User.destroy({ truncate: true, force: true });
+
+    const user = await model.User.create(userDefault);
+
+    token = jwt.encode({ id: user.id }, process.env.SECRET);
   });
 
   describe('GET /api/users/all', () => {
@@ -52,10 +42,10 @@ describe('User Integration Tests', () => {
         .set('Content-Type', 'application/json')
         .set('Authorization', `JWT ${token}`)
         .end((error, res) => {
-          expect(res.status).to.equal(HTTPStatus.OK);
-          expect(res.body.payload).to.be.an('array');
-          expect(res.body.payload[0].name).to.be.equal(userDefault.name);
-          expect(res.body.payload[0].email).to.be.equal(userDefault.email);
+          expect(res.status).toEqual(HTTPStatus.OK);
+          //  expect(res.body.payload).toBe('array');
+          expect(res.body.payload[0].name).toBe(userDefault.name);
+          expect(res.body.payload[0].email).toBe(userDefault.email);
           done(error);
         });
     });
@@ -68,9 +58,9 @@ describe('User Integration Tests', () => {
         .set('Content-Type', 'application/json')
         .set('Authorization', `JWT ${token}`)
         .end((error, res) => {
-          expect(res.status).to.equal(HTTPStatus.OK);
-          expect(res.body.payload.id).to.equal(userDefault.id);
-          expect(res.body.payload).to.have.all.keys(['id', 'name', 'email', 'password']);
+          expect(res.status).toEqual(HTTPStatus.OK);
+          expect(res.body.payload.id).toEqual(userDefault.id);
+          expect(Object.keys(res.body.payload).sort()).toEqual(['id', 'name', 'email', 'password'].sort());
           done(error);
         });
     });
@@ -90,10 +80,10 @@ describe('User Integration Tests', () => {
         .set('Authorization', `JWT ${token}`)
         .send(user)
         .end((error, res) => {
-          expect(res.status).to.equal(HTTPStatus.OK);
-          expect(res.body.payload.id).to.eql(user.id);
-          expect(res.body.payload.name).to.eql(user.name);
-          expect(res.body.payload.email).to.eql(user.email);
+          expect(res.status).toEqual(HTTPStatus.OK);
+          expect(res.body.payload.id).toEqual(user.id);
+          expect(res.body.payload.name).toEqual(user.name);
+          expect(res.body.payload.email).toEqual(user.email);
           done(error);
         });
     });
@@ -111,7 +101,7 @@ describe('User Integration Tests', () => {
         .set('Authorization', `JWT ${token}`)
         .send(user)
         .end((error, res) => {
-          expect(res.status).to.equal(HTTPStatus.OK);
+          expect(res.status).toEqual(HTTPStatus.OK);
           done(error);
         });
     });
@@ -124,7 +114,7 @@ describe('User Integration Tests', () => {
         .set('Content-Type', 'application/json')
         .set('Authorization', `JWT ${token}`)
         .end((error, res) => {
-          expect(res.status).to.equal(HTTPStatus.OK);
+          expect(res.status).toEqual(HTTPStatus.OK);
           done(error);
         });
     });

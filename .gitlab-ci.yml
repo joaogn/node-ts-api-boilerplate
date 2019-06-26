@@ -2,23 +2,11 @@ image: node:10.15.3
 
 test api:
   stage: test
-  services:
-    - postgres:10.8
   variables:
     NODE_ENV: test
-    POSTGRES_DB: ts-api-test
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: pgroot
-    POSTGRES_HOST: postgres
   before_script:
-    - apt-get update && apt-get install -y postgresql-client libpq-dev
-    - PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER -h $POSTGRES_HOST -d $POSTGRES_DB
-    - npm i -g pg sequelize sequelize-cli gulp-cli
-    - cd src/
-    - sequelize db:migrate --env test
-    - cd ../
+    - apt-get update
+    - yarn add global sequelize-cli gulp-cli
     - yarn
-    - gulp
   script:
-    - yarn run unit-test
-    - yarn run integration-test
+    - yarn test

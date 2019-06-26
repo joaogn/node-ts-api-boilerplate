@@ -1,10 +1,9 @@
 import * as jwt from 'jwt-simple';
 import * as HTTPStatus from 'http-status';
-import { app, request, expect } from '../../config/test/helpers';
-import { describe, beforeEach, it } from 'mocha';
+import request from 'supertest';
+import app from '../../src/api/api';
 
-const config = require('../../config/env/config')();
-const model = require('../../models');
+const model = require('../../src/models');
 
 // integration test, tests the answers to the routes, of this module
 
@@ -21,19 +20,12 @@ describe('Auth Integration Tests', () => {
 
   // before each test is checked the database synchronization,
   // the whole database is erased, and a known user is created to maintain good practices
-  beforeEach((done) => {
-    model.sequelize.sync().then(() => {
-      model.User.destroy({
-        where: {}
-      })
-        .then(() => {
-          return model.User.create(userDefault);
-        })
-        .then(user => {
-          token = jwt.encode({ id: user.id }, config.secret);
-          done();
-        });
-    });
+  beforeEach(async () => {
+    await model.User.destroy({ truncate: true, force: true });
+
+    const user = await model.User.create(userDefault);
+
+    token = jwt.encode({ id: user.id }, process.env.SECRET);
   });
 
   describe('POST /token', () => {
@@ -46,8 +38,8 @@ describe('Auth Integration Tests', () => {
         .post('/token')
         .send(credentials)
         .end((error, res) => {
-          expect(res.status).to.equal(HTTPStatus.OK);
-          expect(res.body.token).to.equal(`${token}`);
+          expect(res.status).toEqual(HTTPStatus.OK);
+          expect(res.body.token).toEqual(`${token}`);
           done(error);
         });
     });
@@ -61,8 +53,8 @@ describe('Auth Integration Tests', () => {
         .post('/token')
         .send(credentials)
         .end((error, res) => {
-          expect(res.status).to.equal(HTTPStatus.UNAUTHORIZED);
-          expect(res.body).to.empty;
+          expect(res.status).toEqual(HTTPStatus.UNAUTHORIZED);
+          expect(res.body).toEqual({});
           done(error);
         });
     });

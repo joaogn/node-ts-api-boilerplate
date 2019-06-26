@@ -15,7 +15,8 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+__tests__/coverage
+__tests__/database.sql
 
 # nyc test coverage
 .nyc_output
@@ -56,9 +57,6 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
-
-# dotenv environment variables file
-server/config/env/production.env.ts
 
 # next.js build output
 .next

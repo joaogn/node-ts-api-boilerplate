@@ -3,14 +3,14 @@
     "target": "es6",
     "module": "commonjs",
     "outDir": "dist",
-    "sourceMap": true,
-    "typeRoots": ["../node_modules/@types"],
-    "types": ["node"],
-    "noImplicitAny": false,
+    //   "typeRoots": ["../node_modules/@types"], error with jest
+    //    "types": ["node"], error with jest
     "moduleResolution": "node",
+    "sourceMap": true,
+    "noImplicitAny": false,
     "esModuleInterop": true
   },
-  "include": ["src/**/*.ts", "src/*.ts"],
+  "include": ["src/**/*", "__tests__/**/*"],
   "exclude": ["node_modules"],
   "compileOnSave": true,
   "buildOnSave": true

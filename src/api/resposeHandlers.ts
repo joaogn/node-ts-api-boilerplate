@@ -3,7 +3,6 @@
 import { Request, Response, ErrorRequestHandler, NextFunction } from 'express';
 import * as HttpStatus from 'http-status';
 import * as jwt from 'jwt-simple';
-const config = require('../config/env/config')();
 
 // Class that has the methods responsible for the API response
 
@@ -15,7 +14,7 @@ class Handlers {
   authSuccess (res: Response, data: any) {
     const payload = { id: data.id };
     res.json({
-      token: jwt.encode(payload, config.secret)
+      token: jwt.encode(payload, process.env.SECRET)
     });
   }
 
