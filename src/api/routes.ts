@@ -13,9 +13,9 @@ class Routes {
   initRoutes (app: Application, auth: any): void{
     app.route('/api/users/all').get(UserController.getAll);
     app.route('/api/users/create').post(UserController.createUser);
-    app.route('/api/users/:id').get(UserController.getById);
-    app.route('/api/users/:id/update').put(UserController.updateUser);
-    app.route('/api/users/:id/destroy').delete(UserController.deleteUser);
+    app.route('/api/users/:id').all(auth.config().authenticate()).get(UserController.getById);
+    app.route('/api/users/:id/update').all(auth.config().authenticate()).put(UserController.updateUser);
+    app.route('/api/users/:id/destroy').all(auth.config().authenticate()).delete(UserController.deleteUser);
     app.route('/token').post(TokenRoutes.auth);
   }
 }
