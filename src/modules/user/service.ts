@@ -1,5 +1,4 @@
-import { IUser, IUserDetail, createUsers, createUserById, createUserByEmail } from './interface';
-import * as Bluebird from 'bluebird';
+import { IUser, createUser, createUsers } from './interface';
 const model = require('../../models');
 
 // The service class serves to implement our CRUDS or our Business Rules
@@ -16,25 +15,25 @@ class User implements IUser {
       return model.User.create(user);
     }
 
-    getAll (): Bluebird<IUser[]> {
+    getAll (): Promise<IUser[]> {
       return model.User.findAll({
         order: ['name']
       })
         .then(createUsers);
     }
 
-    getById (id: number): Bluebird<IUserDetail> {
+    getById (id: number): Promise<IUser> {
       return model.User.findOne({
         where: { id }
       })
-        .then(createUserById);
+        .then(createUser);
     }
 
-    getbyEmail (email: string): Bluebird<IUserDetail> {
+    getbyEmail (email: string): Promise<IUser> {
       return model.User.findOne({
         where: { email }
       })
-        .then(createUserByEmail);
+        .then(createUser);
     }
 
     update (id: number, user: any) {

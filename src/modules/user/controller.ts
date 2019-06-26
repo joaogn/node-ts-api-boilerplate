@@ -20,7 +20,6 @@ class UserController {
     User
       .create(req.body)
       .then(_.partial(Handlers.onSucess, res))
-      .catch(_.partial(Handlers.dbErrorHandler, res))
       .catch(_.partial(Handlers.onError, res, 'Error create new user'));
   }
 

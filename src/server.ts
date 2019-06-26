@@ -6,12 +6,10 @@ import Api from './api/api';
 
 const models = require('./models');
 
-const config = require('./config/env/config')();
-
 const server = http.createServer(Api);
 
 models.sequelize.sync().then(() => {
-  server.listen(config.serverPort);
+  server.listen(process.env.SERVER_PORT);
 
   server.on('listening', () => console.log(`server listing ${process.env.SERVER_PORT}`));
   server.on('error', (error: NodeJS.ErrnoException) => console.log(`Error: ${error}`));

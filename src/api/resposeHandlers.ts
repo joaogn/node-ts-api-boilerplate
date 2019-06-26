@@ -34,14 +34,6 @@ class Handlers {
       message: 'Internal Server Error'
     });
   }
-
-  dbErrorHandler (res: Response, err: any) {
-    console.log(`Error: ${err}`);
-    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-      code: 'ERR-01',
-      message: 'Error create user'
-    });
-  }
 }
 
 export default new Handlers();
