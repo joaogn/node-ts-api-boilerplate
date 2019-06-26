@@ -1,7 +1,7 @@
-import * as jwt from 'jwt-simple';
-import * as HTTPStatus from 'http-status';
+import HTTPStatus from 'http-status';
 import request from 'supertest';
 import app from '../../src/api/api';
+import jwt from 'jsonwebtoken';
 const model = require('../../src/models');
 
 // integration test, tests the answers to the routes, of this module
@@ -31,8 +31,11 @@ describe('User Integration Tests', () => {
     await model.User.destroy({ truncate: true, force: true });
 
     const user = await model.User.create(userDefault);
-
-    token = jwt.encode({ id: user.id }, process.env.SECRET);
+    const payload = { id: user.id };
+    token = jwt.sign(payload, process.env.SECRET, {
+      // tempo de expiração do token
+      expiresIn: 300 // expires in 5min
+    });
   });
 
   describe('GET /api/users/all', () => {

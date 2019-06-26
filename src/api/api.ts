@@ -18,7 +18,7 @@ class Api {
       this.middleware();
     }
 
-    middleware (): void{
+    private middleware (): void{
       this.express.use(morgan('dev'));
       this.express.use(bodyParser.urlencoded({ extended: true }));
       this.express.use(bodyParser.json());

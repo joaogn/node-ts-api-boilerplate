@@ -7,11 +7,11 @@ import jwt from 'jsonwebtoken';
 // Class that has the methods responsible for the API response
 
 class Handlers {
-  authFail (req: Request, res: Response) {
+  public authFail (req: Request, res: Response) {
     res.sendStatus(HttpStatus.UNAUTHORIZED);
   }
 
-  authSuccess (res: Response, data: any) {
+  public authSuccess (res: Response, data: any) {
     const payload = { id: data.id };
     res.json({
       token: jwt.sign(payload, process.env.SECRET, {
@@ -21,16 +21,16 @@ class Handlers {
     });
   }
 
-  onError (res: Response, message: string, err: any) {
+  public onError (res: Response, message: string, err: any) {
     console.log(`Error: ${err}`);
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(message);
   }
 
-  onSucess (res: Response, data: any) {
+  public onSucess (res: Response, data: any) {
     res.status(HttpStatus.OK).json({ payload: data });
   }
 
-  errorHandlerApi (err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) {
+  public errorHandlerApi (err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) {
     console.error(`API error handler execute: ${err}`);
     res.status(500).json({
       errorCode: 'ERR-001',

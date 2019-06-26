@@ -8,9 +8,7 @@ import TokenRoutes from '../modules/auth/auth';
 // and call the modules responsible for executing the route
 
 class Routes {
-  constructor () {}
-
-  initRoutes (app: Application, auth: any): void{
+  public initRoutes (app: Application, auth: any): void{
     app.route('/api/users/all').get(UserController.getAll);
     app.route('/api/users/create').post(UserController.createUser);
     app.route('/api/users/:id').all(auth.config().authenticate()).get(UserController.getById);

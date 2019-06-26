@@ -9,34 +9,32 @@ class User implements IUser {
     public email: string;
     public password: string;
 
-    constructor () {}
-
-    create (user: any) {
+    public create (user: any) {
       return model.User.create(user);
     }
 
-    getAll (): Promise<IUser[]> {
+    public getAll (): Promise<IUser[]> {
       return model.User.findAll({
         order: ['name']
       })
         .then(createUsers);
     }
 
-    getById (id: number): Promise<IUser> {
+    public getById (id: number): Promise<IUser> {
       return model.User.findOne({
         where: { id }
       })
         .then(createUser);
     }
 
-    getbyEmail (email: string): Promise<IUser> {
+    public getbyEmail (email: string): Promise<IUser> {
       return model.User.findOne({
         where: { email }
       })
         .then(createUser);
     }
 
-    update (id: number, user: any) {
+    public update (id: number, user: any) {
       return model.User.update(user, {
         where: { id },
         fields: ['name', 'email', 'password'],
@@ -45,7 +43,7 @@ class User implements IUser {
       });
     }
 
-    delete (id: number) {
+    public delete (id: number) {
       return model.User.destroy({
         where: { id }
       });

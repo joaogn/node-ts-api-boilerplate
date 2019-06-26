@@ -7,7 +7,7 @@ import * as bcrypt from 'bcrypt';
 // class responsible for receiving the credentials and verify that they are valid, and authorize the use of the API
 
 class TokenRoutes {
-  auth (req: Request, res: Response) {
+  public auth (req: Request, res: Response) {
     const credentials = {
       email: req.body.email,
       password: req.body.password

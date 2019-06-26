@@ -1,6 +1,5 @@
-// import * as jwt from 'jwt-simple';
 import jwt from 'jsonwebtoken';
-import * as HTTPStatus from 'http-status';
+import HTTPStatus from 'http-status';
 import request from 'supertest';
 import app from '../../src/api/api';
 
@@ -9,8 +8,6 @@ const model = require('../../src/models');
 // integration test, tests the answers to the routes, of this module
 
 describe('Auth Integration Tests', () => {
-  let token;
-
   const userDefault = {
     id: 1,
     name: 'Default User',
@@ -24,9 +21,7 @@ describe('Auth Integration Tests', () => {
   beforeEach(async () => {
     await model.User.destroy({ truncate: true, force: true });
 
-    const user = await model.User.create(userDefault);
-
-  //  token = jwt.encode({ id: user.id }, process.env.SECRET);
+    await model.User.create(userDefault);
   });
 
   describe('POST /token', () => {

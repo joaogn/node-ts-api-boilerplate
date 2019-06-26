@@ -5,7 +5,7 @@ import User from './modules/user/service';
 // this class is responsible for calling the passport middleware and configuring the entire API authentication strategy
 
 class Auth {
-  config () {
+  public config () {
     let opts = {
       secretOrKey: process.env.SECRET,
       jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt')

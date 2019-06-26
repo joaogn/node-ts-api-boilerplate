@@ -7,37 +7,35 @@ import User from './service';
 // And returns the result of the promisses of the service class methods.
 
 class UserController {
-  constructor () {};
-
-  getAll (req: Request, res: Response) {
+  public getAll (req: Request, res: Response) {
     User
       .getAll()
       .then(_.partial(Handlers.onSucess, res))
       .catch(_.partial(Handlers.onError, res, 'Error get all users'));
   }
 
-  createUser (req: Request, res: Response) {
+  public createUser (req: Request, res: Response) {
     User
       .create(req.body)
       .then(_.partial(Handlers.onSucess, res))
       .catch(_.partial(Handlers.onError, res, 'Error create new user'));
   }
 
-  getById (req: Request, res: Response) {
+  public getById (req: Request, res: Response) {
     User
       .getById(parseInt(req.params.id))
       .then(_.partial(Handlers.onSucess, res))
       .catch(_.partial(Handlers.onError, res, 'Error user not find'));
   }
 
-  updateUser (req: Request, res: Response) {
+  public updateUser (req: Request, res: Response) {
     User
       .update(parseInt(req.params.id), req.body)
       .then(_.partial(Handlers.onSucess, res))
       .catch(_.partial(Handlers.onError, res, 'Error update user'));
   }
 
-  deleteUser (req: Request, res: Response) {
+  public deleteUser (req: Request, res: Response) {
     User
       .delete(parseInt(req.params.id))
       .then(_.partial(Handlers.onSucess, res))
