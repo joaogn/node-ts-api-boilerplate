@@ -1,6 +1,6 @@
 
 import User from '../../src/modules/user/service';
-
+import faker from 'faker';
 const model = require('../../src/models');
 
 // unit test, used to test the functions exposed by the module service
@@ -8,10 +8,9 @@ const model = require('../../src/models');
 describe('Unit test controller', () => {
   const userDefault = {
     id: 1,
-    name: 'Default User',
-    email: 'default30@email.com',
-    password: 'default'
-
+    name: faker.name.findName(),
+    email: faker.internet.email(),
+    password: faker.internet.password()
   };
 
   // before each test is checked the database synchronization,
@@ -25,9 +24,9 @@ describe('Unit test controller', () => {
   describe('Method Create', () => {
     it('Create new user', () => {
       const newUser = {
-        name: 'New User',
-        email: 'newuser@email.com',
-        password: '1234'
+        name: faker.name.findName(),
+        email: faker.internet.email(),
+        password: faker.internet.password()
       };
 
       return User.create(newUser)
@@ -40,8 +39,8 @@ describe('Unit test controller', () => {
   describe('Method Update', () => {
     it('Update user', () => {
       const userUpdate = {
-        name: 'new Name',
-        email: 'new@email.com'
+        name: faker.name.findName(),
+        email: faker.internet.email()
       };
 
       return User.update(userDefault.id, userUpdate).then(data => {

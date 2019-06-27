@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import HTTPStatus from 'http-status';
 import request from 'supertest';
 import app from '../../src/api/api';
+import faker from 'faker';
 
 const model = require('../../src/models');
 
@@ -10,9 +11,9 @@ const model = require('../../src/models');
 describe('Auth Integration Tests', () => {
   const userDefault = {
     id: 1,
-    name: 'Default User',
-    email: 'default@email.com',
-    password: 'default'
+    name: faker.name.findName(),
+    email: faker.internet.email(),
+    password: faker.internet.password()
 
   };
 
@@ -43,8 +44,8 @@ describe('Auth Integration Tests', () => {
 
     it(' Get notvalid token', done => {
       const credentials = {
-        email: 'notvalid@email.com',
-        password: '1234'
+        email: faker.internet.email(),
+        password: faker.internet.password()
       };
       request(app)
         .post('/token')

@@ -2,6 +2,7 @@ import HTTPStatus from 'http-status';
 import request from 'supertest';
 import app from '../../src/api/api';
 import jwt from 'jsonwebtoken';
+import faker from 'faker';
 const model = require('../../src/models');
 
 // integration test, tests the answers to the routes, of this module
@@ -9,18 +10,11 @@ const model = require('../../src/models');
 describe('User Integration Tests', () => {
   let token;
 
-  const userTest = {
-    id: 100,
-    name: 'Test User',
-    email: 'test@email.com',
-    password: 'test'
-  };
-
   const userDefault = {
     id: 1,
-    name: 'Default User',
-    email: 'default@email.com',
-    password: 'default'
+    name: faker.name.findName(),
+    email: faker.internet.email(),
+    password: faker.internet.password()
 
   };
 
@@ -46,7 +40,6 @@ describe('User Integration Tests', () => {
         .set('Authorization', `JWT ${token}`)
         .end((error, res) => {
           expect(res.status).toEqual(HTTPStatus.OK);
-          //  expect(res.body.payload).toBe('array');
           expect(res.body.payload[0].name).toBe(userDefault.name);
           expect(res.body.payload[0].email).toBe(userDefault.email);
           done(error);
@@ -72,10 +65,9 @@ describe('User Integration Tests', () => {
   describe('POST /api/users/create ', () => {
     it('Create new user', done => {
       const user = {
-        id: 2,
-        name: 'Test User',
-        email: 'user@email.com',
-        password: 'newuser'
+        name: faker.name.findName(),
+        email: faker.internet.email(),
+        password: faker.internet.password()
       };
       request(app)
         .post('/api/users/create')
@@ -84,7 +76,6 @@ describe('User Integration Tests', () => {
         .send(user)
         .end((error, res) => {
           expect(res.status).toEqual(HTTPStatus.OK);
-          expect(res.body.payload.id).toEqual(user.id);
           expect(res.body.payload.name).toEqual(user.name);
           expect(res.body.payload.email).toEqual(user.email);
           done(error);
@@ -95,11 +86,11 @@ describe('User Integration Tests', () => {
   describe('PUT /api/users/:id/update', () => {
     it('Update user', done => {
       const user = {
-        nome: 'TestUpdate',
-        email: 'update@email.com'
+        name: faker.name.findName(),
+        email: faker.internet.email()
       };
       request(app)
-        .put(`/api/users/${userTest.id}/update`)
+        .put(`/api/users/${userDefault.id}/update`)
         .set('Content-Type', 'application/json')
         .set('Authorization', `JWT ${token}`)
         .send(user)
@@ -113,7 +104,7 @@ describe('User Integration Tests', () => {
   describe('DELETE /api/users/:id/destroy', () => {
     it('Delete user', done => {
       request(app)
-        .delete(`/api/users/${userTest.id}/destroy`)
+        .delete(`/api/users/${userDefault.id}/destroy`)
         .set('Content-Type', 'application/json')
         .set('Authorization', `JWT ${token}`)
         .end((error, res) => {
