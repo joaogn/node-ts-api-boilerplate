@@ -10,7 +10,7 @@
     "noImplicitAny": false,
     "esModuleInterop": true
   },
-  "include": ["src/**/*", "__tests__/**/*"],
+  "include": ["src/", "src/**/*"],
   "exclude": ["node_modules"],
   "compileOnSave": true,
   "buildOnSave": true

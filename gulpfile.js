@@ -14,19 +14,9 @@ gulp.task('compile', function () {
     .js.pipe(gulp.dest('dist'));
 });
 
-gulp.task('copy-opts', function () {
-  return gulp.src('src/config/test/mocha.opts')
-    .pipe(gulp.dest('dist/src/config/test'));
+gulp.task('copy-migration', function () {
+  return gulp.src('src/database/migrations/*')
+    .pipe(gulp.dest('dist/database/migrations'));
 });
 
-gulp.task('copy-migration-config', function () {
-  return gulp.src('src/config/config.json', { allowEmpty: true })
-    .pipe(gulp.dest('dist/src/config'));
-});
-
-gulp.task('build', function () {
-  return gulp.src('src/migrations/*', { allowEmpty: true })
-    .pipe(gulp.dest('dist/src/migrations'));
-});
-
-gulp.task('default', gulp.series('clean', 'compile', 'copy-opts', 'copy-migration-config', 'build'));
+gulp.task('default', gulp.series('clean', 'compile', 'copy-migration'));
