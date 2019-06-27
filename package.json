@@ -4,12 +4,12 @@
   "description": "API usando node,typescrip,sequelize e postgree",
   "main": "server/server.ts",
   "scripts": {
-    "start": "NODE_ENV=development ./node_modules/.bin/ts-node ./src/server.ts",
-    "dev": "NODE_ENV=development nodemon ./src/server.ts",
-    "builded": "NODE_ENV=production node ./dist/server.js",
+    "start": "node ./dist/server.js",
+    "dev": "nodemon ./src/server.ts",
     "pretest": "NODE_ENV=test sequelize db:migrate",
     "test": "NODE_ENV=test jest --runInBand",
-    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
+    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all",
+    "startTS": "./node_modules/.bin/ts-node ./src/server.ts"
   },
   "keywords": [
     "API",
