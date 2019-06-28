@@ -2,54 +2,52 @@
 
 // this code is responsible for defining a database table, to be used by sequelize.
 // here bcrypt is used, in order to encrypt the user's password when saving to the database.
+import { Table, Model, DataType, Column, Scopes } from 'sequelize-typescript';
 
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 
-export default function (sequelize, DataTypes) {
-  const User = sequelize.define('User', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
+@Scopes({})
+@Table({
+  timestamps: true,
+  tableName: 'Users'
+})
+export class UserModel extends Model<UserModel> {
+  @Column({
+    type: DataType.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  })
+  id: number;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
     }
+  })
+  name: string;
 
-  });
-
-  function hashPassword (user) {
-    const salt = bcrypt.genSaltSync(10);
-    if (user.changed('password')) {
-      user.set('password', bcrypt.hashSync(user.password, salt));
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
     }
-  }
+  })
+  email: string;
 
-  User.beforeCreate((user) => {
-    return hashPassword(user);
-  });
-
-  User.beforeUpdate((user) => {
-    return hashPassword(user);
-  });
-
-  return User;
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    },
+    set: function (value) {
+      const salt = bcrypt.genSaltSync(10);
+      const encryptedPass = bcrypt.hashSync(value, salt);
+      this.setDataValue('password', encryptedPass);
+    }
+  })
+  password: string;
 }

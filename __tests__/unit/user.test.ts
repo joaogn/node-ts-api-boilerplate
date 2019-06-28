@@ -1,7 +1,7 @@
 
 import User from '../../src/modules/user/service';
 import faker from 'faker';
-const model = require('../../src/models');
+import { UserModel } from '../../src/models';
 
 // unit test, used to test the functions exposed by the module service
 
@@ -16,9 +16,9 @@ describe('Unit test controller', () => {
   // before each test is checked the database synchronization,
   // the whole database is erased, and a known user is created to maintain good practices
   beforeEach(async () => {
-    await model.User.destroy({ truncate: true, force: true });
+    await UserModel.destroy({ truncate: true, force: true });
 
-    await model.User.create(userDefault);
+    await UserModel.create(userDefault);
   });
 
   describe('Method Create', () => {
@@ -31,7 +31,8 @@ describe('Unit test controller', () => {
 
       return User.create(newUser)
         .then(data => {
-          expect(Object.keys(data.dataValues).sort()).toEqual(['id', 'name', 'email', 'password', 'createdAt', 'updatedAt'].sort());
+          expect(data.name).toBe(newUser.name);
+          expect(data.email).toBe(newUser.email);
         });
     });
   });
@@ -44,7 +45,6 @@ describe('Unit test controller', () => {
       };
 
       return User.update(userDefault.id, userUpdate).then(data => {
-        console.log(data[0]);
         expect(data[0]).toEqual(1);
       });
     });
@@ -53,7 +53,6 @@ describe('Unit test controller', () => {
   describe('Method Get Users', () => {
     it('Return all users', () => {
       return User.getAll().then(data => {
-        //   expect(data).toBe('array');
         expect(Object.keys(data[0]).sort()).toEqual(['id', 'name', 'email', 'password'].sort());
       });
     });

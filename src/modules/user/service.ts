@@ -1,5 +1,6 @@
 import { IUser, createUser, createUsers } from './interface';
-const model = require('../../models');
+// const model = require('../../models');
+import { UserModel } from '../../models';
 
 // The service class serves to implement our CRUDS or our Business Rules
 
@@ -10,32 +11,32 @@ class User implements IUser {
     public password: string;
 
     public create (user: any) {
-      return model.User.create(user);
+      return UserModel.create(user);
     }
 
     public getAll (): Promise<IUser[]> {
-      return model.User.findAll({
+      return UserModel.findAll({
         order: ['name']
       })
         .then(createUsers);
     }
 
     public getById (id: number): Promise<IUser> {
-      return model.User.findOne({
+      return UserModel.findOne({
         where: { id }
       })
         .then(createUser);
     }
 
     public getbyEmail (email: string): Promise<IUser> {
-      return model.User.findOne({
+      return UserModel.findOne({
         where: { email }
       })
         .then(createUser);
     }
 
     public update (id: number, user: any) {
-      return model.User.update(user, {
+      return UserModel.update(user, {
         where: { id },
         fields: ['name', 'email', 'password'],
         hooks: true,
@@ -44,7 +45,7 @@ class User implements IUser {
     }
 
     public delete (id: number) {
-      return model.User.destroy({
+      return UserModel.destroy({
         where: { id }
       });
     }

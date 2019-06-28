@@ -3,7 +3,7 @@ import request from 'supertest';
 import app from '../../src/api/api';
 import jwt from 'jsonwebtoken';
 import faker from 'faker';
-const model = require('../../src/models');
+import { UserModel } from '../../src/models';
 
 // integration test, tests the answers to the routes, of this module
 
@@ -22,9 +22,9 @@ describe('User Integration Tests', () => {
   // the whole database is erased, and a known user is created to maintain good practices
   beforeEach(async () => {
     //   await model.sequelize.sync();
-    await model.User.destroy({ truncate: true, force: true });
+    await UserModel.destroy({ truncate: true, force: true });
 
-    const user = await model.User.create(userDefault);
+    const user = await UserModel.create(userDefault);
     const payload = { id: user.id };
     token = jwt.sign(payload, process.env.SECRET, {
       // tempo de expiração do token

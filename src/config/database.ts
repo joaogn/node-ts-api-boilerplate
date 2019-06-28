@@ -10,4 +10,5 @@ module.exports = {
   host: process.env.HOST,
   storage: './__tests__/database.sql',
   logging: false
+  // modelPaths: ['../models']
 };
