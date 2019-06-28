@@ -11,58 +11,64 @@ Uses nodejs, typescript, sequelize and postgreSql, to create rest Api.
 - Passport
 - Gitlab-CI
 - Gulp
-- Tslint
-- Mocha Unit and Integration Test
-- Nyc Code Coverage
+- ESLint
+- Jest
 
 ## Quick start
-- Install Global Depedencies: `npm i gulp-cli pg sequelize sequelize-cli tslint typescript -g`
+- Install Global Depedencies: `yarn add global gulp-cli pg sequelize sequelize-cli typescript`
 - Clone git repo: `git clone https://github.com/Mucilon/node-ts-api-boilerplate.git cool-name-api`
 - Enter folder: `cd cool-name-api`
 - Clear git history: `rm -r .git`
-- Install Depedencies: `npm install`
-- Set enviroment values: `npm Start/server/config/env/`
+- Install Depedencies: `yarn`
 - Generate dist files: `gulp`
 - Start Server: `npm start`
-- Unit Test: `npm run unit-local-test`
-- Integration Test: `npm run integration-local-test`
-- Unit Coverage: `npm run unit-coverage`
-- Integration Coverage: `npm run integration-coverage`
+- Tests: `yarn test`
+- Develop: `yarn dev`
 
 ## Architecture
 ```
-Server
-├── api
-│   ├── api.ts
-│   ├── resposeHandlers.ts
-│   └── routes.ts
-├── config
-│   ├── config.json
-│   ├── env
-│   │   ├── config.ts
-│   │   ├── debbuger.env.ts
-│   │   ├── development.env.ts
-│   │   ├── test.env.ts
-│   │   └── testlocal.env.ts
-│   └── test
-│       ├── helpers.ts
-│       └── mocha.opts
-├── migrations
-│   └── 20190521212458-create-user.js
-├── models
-│   ├── index.ts
-│   └── user.ts
-├── modules
-│   ├── auth
-│   │   ├── auth.ts
-│   │   └── integration.test.ts
-│   └── user
-│       ├── controller.ts
-│       ├── integration.test.ts
-│       ├── interface.ts
-│       ├── routes.ts
-│       ├── service.ts
-│       └── unit.test.ts
-├── auth.ts
-└── server.ts
+├── .vscode
+│   └── launch.json
+├── __tests__
+│   ├── integration
+│   │   ├── auth.test.ts
+│   │   └── user.test.ts
+│   └── unit
+│       └── user.test.ts
+├── src
+│   ├── api
+│   │   ├── api.ts
+│   │   ├── resposeHandlers.ts
+│   │   └── routes.ts
+│   ├── config
+│   │   └── database.ts
+│   ├── database
+│   │   ├── migrations
+│   │   │   └── 20190521212458-create-user.js
+│   │   └── seeders
+│   ├── models
+│   │   ├── index.ts
+│   │   └── user.ts
+│   ├── modules
+│   │   ├── auth
+│   │   │   └── auth.ts
+│   │   └── user
+│   │       ├── controller.ts
+│   │       ├── interface.ts
+│   │       └── service.ts
+│   ├── auth.ts
+│   └── server.ts
+├── .env
+├── .env.test
+├── .eslintrc.js
+├── .gitignore
+├── .gitlab-ci.yml
+├── .sequelizerc
+├── gulpfile.js
+├── jest.config.js
+├── nodemon.json
+├── package.json
+├── README.md
+├── tsconfig.json
+└── yarn.lock
 ```
